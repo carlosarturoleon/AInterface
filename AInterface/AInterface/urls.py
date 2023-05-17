@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('kneighborsclassifier/', include('Apps.KNeighborsClassifier.urls')),
+    path('', include('Apps.home.urls')),
 ]
