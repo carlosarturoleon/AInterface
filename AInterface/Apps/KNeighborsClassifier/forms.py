@@ -1,7 +1,8 @@
 from django import forms
-from .models import CSVData
+from .models import CSVFile
 
 class CSVDataForm(forms.ModelForm):
+
     class Meta:
-        model = CSVData
-        fields = ['ia_model', 'csv_file']
+        model = CSVFile
+        fields = ['file']

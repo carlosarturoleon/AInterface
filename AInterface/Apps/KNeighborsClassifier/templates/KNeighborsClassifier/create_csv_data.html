@@ -1,25 +1,12 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <h1>Create CSV Data</h1>
-
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        <label for="id_ia_model">IA Model:</label>
-        <select name="ia_model" id="id_ia_model">
-            <option value="model1">KNeighborsClassifier</option>
-            <option value="model2">Model 2</option>
-            <option value="model3">Model 3</option>
-        </select>
-
-        <br>
-
-        <label for="id_csv_file">CSV File:</label>
-        <input type="file" name="csv_file" id="id_csv_file">
-
-        <br>
-
-        <button type="submit">Upload</button>
-    </form>
-    {% endblock %}
+<p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit">
+</form>
+</p>
+{% endblock %}
