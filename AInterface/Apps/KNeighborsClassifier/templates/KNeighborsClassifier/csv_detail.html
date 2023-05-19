@@ -2,4 +2,11 @@
 {% block content %}
 <h1>{{ csv_file }}</h1>
 <h1>{{ csv_file.uploaded_at }}</h1>
+<h1>CSV Detail</h1>
+<h2>CSV File Information</h2>
+<p>CSV File ID: {{ csv_file.id }}</p>
+<p>CSV File Name: {{ csv_file.file.name }}</p>
+
+<h2>Matplotlib Plot</h2>
+<img src="../../{{ plot_file }}" alt="Matplotlib Plot">
 {% endblock %}
