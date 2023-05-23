@@ -8,8 +8,22 @@
 <p>CSV File Name: {{ csv_file.file.name }}</p>
 
 <h2>Matplotlib Plot</h2>
-<img src="../../{{ plot_file }}" alt="Matplotlib Plot">
-<img src="../../{{ bars_graph }}" alt="Matplotlib Plot">
-<p> {{  headers  }}</p>
-<div>{{ html_table|safe }}</div>
+<div class="image-container"></div>
+    <img class="plot-image" src="../../{{ plot_file }}" alt="Matplotlib Plot">
+    <img class="plot-image" src="../../{{ bars_graph }}" alt="Matplotlib Plot">
+</div>
+<p> {{ headers }}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive table-container">
+                <table class="table table-bordered sticky-top">
+                    {{ html_table|safe }}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}

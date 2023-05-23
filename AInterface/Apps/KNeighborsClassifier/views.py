@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import os, tempfile
+import os
 import matplotlib.backends.backend_agg as agg
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier

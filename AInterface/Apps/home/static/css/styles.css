@@ -1,0 +1,24 @@
+
+
+.table-container {
+    max-height: 400px;  /* Adjust the max height as needed */
+    overflow: auto;
+}
+
+.table-container th {
+    position: sticky;
+    top: 0;
+    background-color: #007bff;  /* Nice blue color */
+    color: #ffffff;  /* Text color for headers */
+    text-align: center;  /* Align header titles to the center */
+}
+
+.image-container {
+    text-align: center;  /* Center the images horizontally */
+}
+
+.image-container img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
