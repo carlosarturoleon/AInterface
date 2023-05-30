@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('kneighborsclassifier/', include('Apps.KNeighborsClassifier.urls')),
     path('', include('Apps.home.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:

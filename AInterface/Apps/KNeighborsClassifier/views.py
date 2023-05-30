@@ -10,9 +10,12 @@ import os
 import matplotlib.backends.backend_agg as agg
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from .owner import OwnerListView, OwnerDetailView, OwnerDeleteView
+from django.contrib.humanize.templatetags.humanize import naturaltime
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CsvCreateView(View):
+class CsvCreateView(LoginRequiredMixin, View):
     template_name = 'KNeighborsClassifier/create_csv_data.html'
 
     def get(self, request, pk=None):
@@ -28,16 +31,14 @@ class CsvCreateView(View):
             ctx = {'form': form}
             return render(request, self.template_name, ctx)
 
-        csv_file = form.save()
+        # Add owner to the model before saving
+        csv_file = form.save(commit=False)
+        csv_file.owner = self.request.user
+        csv_file.save()
         return redirect(success_url, pk=csv_file.pk)
     
 
-class CsvDetailView(View):
-    model = CSVFile
-    template_name = "KNeighborsClassifier/csv_detail.html"
-
-
-class CsvDetailView(View):
+class CsvDetailView(OwnerDetailView):
     model = CSVFile
     template_name = "KNeighborsClassifier/csv_detail.html"
 
@@ -120,4 +121,27 @@ class CsvDetailView(View):
         canvas2.print_png(temp_file2)
         # Pass the temporary file path to the template
         context = {'csv_file': csv_file, 'plot_file': temp_file, 'bars_graph': temp_file2, 'headers': headers, 'html_table': html_table}
+        return render(request, self.template_name, context)
+
+
+class CsvListView(OwnerListView):
+    template_name = "KNeighborsClassifier/csv_list.html"
+
+    def get(self, request) :
+        csv_list = CSVFile.objects.all().order_by('-uploaded_at')
+
+        # Augment the post_list
+        for obj in csv_list:
+            obj.natural_updated = naturaltime(obj.uploaded_at)
+        ctx = {'csv_list' : csv_list}
+        return render(request, self.template_name, ctx)
+    
+
+class CsvDeleteView(OwnerDeleteView):
+    model = CSVFile
+    template_name = "KNeighborsClassifier/csv_confirm_delete.html"
+
+    def get(self, request, pk):
+        csv_file = CSVFile.objects.get(id=pk)
+        context = {'csv_file': csv_file}
         return render(request, self.template_name, context)
