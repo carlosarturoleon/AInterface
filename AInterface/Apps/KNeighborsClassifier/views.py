@@ -133,6 +133,7 @@ class CsvListView(OwnerListView):
         # Augment the post_list
         for obj in csv_list:
             obj.natural_updated = naturaltime(obj.uploaded_at)
+            
         ctx = {'csv_list' : csv_list}
         return render(request, self.template_name, ctx)
     
